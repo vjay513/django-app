@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <body>
 
 <p>This is a paragraph.</p>
 {{insert_me}}
+
+<img src="{% static "images/test.jpg" %}" alt="hello">
 
 </body>
 </html>
