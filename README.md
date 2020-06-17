@@ -115,6 +115,65 @@ urlpatterns = [
 python manage.py runserver
 ```
 
+## Templates
+
+Being a web framework, Django needs a convenient way to generate HTML dynamically. The most common approach relies on templates. A template contains the static parts of the desired HTML output as well as some special syntax describing how dynamic content will be inserted. For a hands-on example of creating HTML pages with templates,
+
+## Configuration
+
+```
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            # ... some options here ...
+        },
+    },
+]
+```
+- settings:
+
+- DIRS defines a list of directories where the engine should look for template source files, in search order.
+
+- APP_DIRS tells whether the engine should look for templates inside installed applications. Each backend defines a conventional name for the subdirectory inside applications where its templates should be stored.
+
+```
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
+```
+
+## Managing static files (e.g. images, JavaScript, CSS)
+
+Websites generally need to serve additional files such as images, JavaScript, or CSS. In Django, we refer to these files as “static files”. Django provides django.contrib.staticfiles to help you manage them.
+
+## Configuring static files
+
+- Make sure that django.contrib.staticfiles is included in your INSTALLED_APPS.
+
+- In your settings file, define STATIC_URL, for example:
+
+```
+STATIC_URL = '/static/'
+```
+
+- In your templates, use the static template tag to build the URL for the given relative path using the configured STATICFILES_STORAGE.
+
+```
+{% load static %}
+
+<img src="{% static "my_app/example.jpg" %}" alt="My image">
+```
+- Store your static files in a folder called static in your app. For example my_app/static/my_app/example.jpg.
+
+Your project will probably also have static assets that aren’t tied to a particular app. In addition to using a static/ directory inside your apps, you can define a list of directories (STATICFILES_DIRS) in your settings file where Django will also look for static files. For example:
+
+```
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
+```
 
 
 
